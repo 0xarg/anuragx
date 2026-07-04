@@ -1,26 +1,178 @@
 @import "tailwindcss";
 
+/*
+  Design tokens for the "Jayden"-style redesign:
+  dark near-black canvas, warm orange accent, large rounded cards.
+*/
+@theme {
+  --color-bg: #0a0908;
+  --color-surface-1: #141210;
+  --color-surface-2: #1a1714;
+  --color-surface-3: #221d19;
+  --color-text: #f5f2ee;
+  --color-muted: rgba(245, 242, 238, 0.6);
+  --color-faint: rgba(245, 242, 238, 0.34);
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-line-strong: rgba(255, 255, 255, 0.14);
+
+  --color-accent: #ff5b26;
+  --color-accent-2: #ff8a3d;
+  --color-accent-3: #ff3d2e;
+
+  --font-display: var(--font-oswald), ui-sans-serif, system-ui, sans-serif;
+  --font-script: var(--font-sacramento), cursive;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Large rounded cards — the reference is very round. */
+  --radius-card: 28px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --gradient-accent: linear-gradient(135deg, #ff8a3d, #ff3d2e);
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+/* Display type: Oswald, condensed statement headings. */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+}
+
+.font-script {
+  font-family: var(--font-script);
+  font-weight: 400;
+}
+
+/* Small section labels (• Experiences, [01] …). */
+.eyebrow {
+  font-family: var(--font-sans);
+  letter-spacing: 0.04em;
+  color: var(--color-faint);
+}
+
+/* Text filled with the accent gradient. */
+.text-gradient {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Frosted-glass surface used across cards, pills, and the nav rail. */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Subtle lift on interactive glass cards. */
+.glass-hover {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+.glass-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 138, 61, 0.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 14px 44px rgba(255, 91, 38, 0.12);
+}
+
+/* Gentle float loop for the hero photo (disabled under reduced-motion). */
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.animate-float {
+  animation: float-y 6s ease-in-out infinite;
+}
+
+/* Slow pulse for the hero glow. */
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.animate-glow {
+  animation: glow-pulse 7s ease-in-out infinite;
+}
+
+/* Soft orange glow used behind the hero + section accents. */
+.glow-orange {
+  background: radial-gradient(
+    60% 60% at 50% 40%,
+    rgba(255, 91, 38, 0.35) 0%,
+    rgba(255, 61, 46, 0.12) 40%,
+    transparent 72%
+  );
+}
+
+/* Infinite marquee (used when reduced-motion is not set; see below). */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee-x var(--marquee-duration, 22s) linear infinite;
+}
+
+/* Hide the native cursor when the custom dot cursor is active (fine pointers only). */
+@media (pointer: fine) {
+  body.has-custom-cursor,
+  body.has-custom-cursor * {
+    cursor: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee,
+  .animate-float,
+  .animate-glow {
+    animation: none;
+  }
 }
