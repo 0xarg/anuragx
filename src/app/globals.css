@@ -1,38 +1,57 @@
 @import "tailwindcss";
 
 /*
-  Design tokens for the "Jayden"-style redesign:
-  dark near-black canvas, warm orange accent, large rounded cards.
+  Calm, content-first design system.
+  Near-monochrome neutral palette, light default with a class-based dark mode.
+  Flat surfaces, thin borders, generous whitespace — no glass / glow / marquee.
 */
-@theme {
-  --color-bg: #0a0908;
-  --color-surface-1: #141210;
-  --color-surface-2: #1a1714;
-  --color-surface-3: #221d19;
-  --color-text: #f5f2ee;
-  --color-muted: rgba(245, 242, 238, 0.6);
-  --color-faint: rgba(245, 242, 238, 0.34);
-  --color-line: rgba(255, 255, 255, 0.08);
-  --color-line-strong: rgba(255, 255, 255, 0.14);
 
-  --color-accent: #ff5b26;
-  --color-accent-2: #ff8a3d;
-  --color-accent-3: #ff3d2e;
-
-  --font-display: var(--font-oswald), ui-sans-serif, system-ui, sans-serif;
-  --font-script: var(--font-sacramento), cursive;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-
-  /* Large rounded cards — the reference is very round. */
-  --radius-card: 28px;
-  --radius-lg: 20px;
-  --radius-pill: 9999px;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --gradient-accent: linear-gradient(135deg, #ff8a3d, #ff3d2e);
-  --glass-bg: rgba(255, 255, 255, 0.04);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --muted: #6f6f76;
+  --muted-strong: #52525b;
+  --border: #e6e6e9;
+  --card: #fafafa;
+  --card-hover: #f4f4f5;
+  /* Restrained accent — used sparingly on links, focus, and the CTA. */
+  --accent: #0a0a0a;
+  --accent-contrast: #ffffff;
+  --ring: rgba(10, 10, 10, 0.28);
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #f5f5f5;
+  --muted: #9b9ba3;
+  --muted-strong: #b8b8bf;
+  --border: #232326;
+  --card: #131315;
+  --card-hover: #17171a;
+  --accent: #f5f5f5;
+  --accent-contrast: #0a0a0a;
+  --ring: rgba(245, 245, 245, 0.3);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-strong: var(--muted-strong);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --color-accent: var(--accent);
+  --color-accent-contrast: var(--accent-contrast);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --radius-card: 12px;
+  --radius-lg: 10px;
+  --radius-pill: 9999px;
 }
 
 html {
@@ -40,139 +59,53 @@ html {
 }
 
 body {
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--background);
+  color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: #fff;
+  background: var(--foreground);
+  color: var(--background);
 }
 
-/* Display type: Oswald, condensed statement headings. */
-.font-display {
-  font-family: var(--font-display);
-  letter-spacing: -0.01em;
-  line-height: 0.95;
-}
-
-.font-script {
-  font-family: var(--font-script);
-  font-weight: 400;
-}
-
-/* Small section labels (• Experiences, [01] …). */
+/* Small mono label / eyebrow used across section headers. */
 .eyebrow {
-  font-family: var(--font-sans);
-  letter-spacing: 0.04em;
-  color: var(--color-faint);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  color: var(--muted);
 }
 
-/* Text filled with the accent gradient. */
-.text-gradient {
-  background: var(--gradient-accent);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Headings: tight tracking, normal case, restrained scale. */
+.tracking-tight-heading {
+  letter-spacing: -0.02em;
 }
 
-/* Frosted-glass surface used across cards, pills, and the nav rail. */
-.glass {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 8px 30px rgba(0, 0, 0, 0.3);
-}
-
-/* Subtle lift on interactive glass cards. */
-.glass-hover {
-  transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.35s ease,
-    box-shadow 0.35s ease;
-}
-.glass-hover:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 138, 61, 0.4);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 14px 44px rgba(255, 91, 38, 0.12);
-}
-
-/* Gentle float loop for the hero photo (disabled under reduced-motion). */
-@keyframes float-y {
-  0%,
-  100% {
+/* Vertical gutter marquee: the track holds the phrase twice, so translating up
+   by half its height loops seamlessly. */
+@keyframes marquee-y {
+  from {
     transform: translateY(0);
   }
-  50% {
-    transform: translateY(-12px);
-  }
-}
-.animate-float {
-  animation: float-y 6s ease-in-out infinite;
-}
-
-/* Slow pulse for the hero glow. */
-@keyframes glow-pulse {
-  0%,
-  100% {
-    opacity: 0.75;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-.animate-glow {
-  animation: glow-pulse 7s ease-in-out infinite;
-}
-
-/* Soft orange glow used behind the hero + section accents. */
-.glow-orange {
-  background: radial-gradient(
-    60% 60% at 50% 40%,
-    rgba(255, 91, 38, 0.35) 0%,
-    rgba(255, 61, 46, 0.12) 40%,
-    transparent 72%
-  );
-}
-
-/* Infinite marquee (used when reduced-motion is not set; see below). */
-@keyframes marquee-x {
-  from {
-    transform: translateX(0);
-  }
   to {
-    transform: translateX(-50%);
+    transform: translateY(-50%);
   }
 }
 
-.animate-marquee {
-  animation: marquee-x var(--marquee-duration, 22s) linear infinite;
-}
-
-/* Hide the native cursor when the custom dot cursor is active (fine pointers only). */
-@media (pointer: fine) {
-  body.has-custom-cursor,
-  body.has-custom-cursor * {
-    cursor: none;
-  }
+.animate-marquee-y {
+  animation: marquee-y 60s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .animate-marquee,
-  .animate-float,
-  .animate-glow {
+
+  .animate-marquee-y {
     animation: none;
   }
 }

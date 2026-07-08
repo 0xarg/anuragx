@@ -12,7 +12,8 @@ import {
   SiSolidity,
   SiAnthropic,
 } from "react-icons/si";
-import { Reveal } from "@/components/Reveal";
+import { BlurFade } from "@/components/BlurFade";
+import { Section } from "@/components/Section";
 import { techstack, type TechIcon } from "@/content/techstack";
 
 const icons: Record<TechIcon, IconType> = {
@@ -29,37 +30,49 @@ const icons: Record<TechIcon, IconType> = {
   claude: SiAnthropic,
 };
 
+/** Real brand color revealed on hover. Monochrome brands (Next.js, Solidity)
+ *  map to the theme foreground so they read as "activated" in both modes. */
+const brandColors: Record<TechIcon, string> = {
+  typescript: "#3178C6",
+  nextjs: "var(--foreground)",
+  react: "#61DAFB",
+  nodejs: "#5FA04E",
+  nestjs: "#E0234E",
+  postgresql: "#4169E1",
+  supabase: "#3FCF8E",
+  docker: "#2496ED",
+  githubactions: "#2088FF",
+  solidity: "var(--foreground)",
+  claude: "#D97757",
+};
+
 export function TechStack() {
   return (
-    <section id="tech" className="mx-auto w-full max-w-6xl px-5 py-16 sm:py-24">
-      <Reveal className="mb-12 text-center">
-        <span className="eyebrow inline-flex items-center gap-2 text-sm uppercase tracking-wide">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-          Tech Stack
-        </span>
-        <h2 className="font-display mt-3 text-5xl font-medium uppercase text-text sm:text-7xl">
-          Tools I ship with
-        </h2>
-      </Reveal>
+    <Section id="tech">
+      <BlurFade>
+        <span className="eyebrow">skills</span>
+      </BlurFade>
 
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        {techstack.map((tech, i) => {
-          const Icon = icons[tech.icon];
-          return (
-            <Reveal key={tech.name} delay={(i % 4) * 0.05}>
-              <div className="glass glass-hover group flex h-full items-center gap-4 rounded-[var(--radius-card)] p-5">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-lg)] bg-white/5 text-text transition-colors duration-300 group-hover:text-accent">
-                  <Icon size={24} />
-                </span>
-                <div className="min-w-0">
-                  <h3 className="truncate text-base font-medium text-text">{tech.name}</h3>
-                  <p className="mt-0.5 truncate text-xs text-muted">{tech.blurb}</p>
-                </div>
-              </div>
-            </Reveal>
-          );
-        })}
-      </div>
-    </section>
+      <BlurFade delay={0.05}>
+        <ul className="mt-6 flex flex-wrap gap-2">
+          {techstack.map((tech) => {
+            const Icon = icons[tech.icon];
+            return (
+              <li
+                key={tech.name}
+                style={{ ["--brand" as string]: brandColors[tech.icon] }}
+                className="group inline-flex items-center gap-2 rounded-[var(--radius-pill)] border border-border bg-card px-3 py-1.5 text-sm text-muted-strong transition-colors duration-200 hover:border-[color:var(--brand)] hover:text-foreground"
+              >
+                <Icon
+                  size={15}
+                  className="text-muted transition-colors duration-200 group-hover:text-[color:var(--brand)]"
+                />
+                {tech.name}
+              </li>
+            );
+          })}
+        </ul>
+      </BlurFade>
+    </Section>
   );
 }

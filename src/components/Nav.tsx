@@ -2,12 +2,16 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { site } from "@/content/site";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
-/**
- * Top bar (reference): logo left, centered availability pill with a live green
- * dot, location right. Gains a blurred background once the page scrolls.
- */
+const links = [
+  { href: "#about", label: "about" },
+  { href: "#work", label: "work" },
+  { href: "#contact", label: "contact" },
+];
+
+/** Minimal top bar: mono wordmark left, anchor links + theme toggle right.
+ *  Gains a blurred, bordered background once the page scrolls. */
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
 
@@ -21,30 +25,34 @@ export function Nav() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled ? "border-b border-line bg-bg/70 backdrop-blur-md" : "border-b border-transparent"
+        scrolled
+          ? "border-b border-border bg-background/70 backdrop-blur-md"
+          : "border-b border-transparent"
       }`}
     >
-      <nav className="mx-auto grid w-full max-w-7xl grid-cols-2 items-center gap-4 px-5 py-4 sm:grid-cols-3">
+      <nav className="mx-auto flex w-full max-w-2xl items-center justify-between px-5 py-4">
         <Link
           href="#top"
-          className="font-display text-xl font-semibold uppercase tracking-tight text-text transition-colors hover:text-accent"
+          className="font-mono text-sm font-medium tracking-tight text-foreground transition-opacity hover:opacity-70"
         >
-          Anurag
+          anurag<span className="text-muted">.dev</span>
         </Link>
 
-        <div className="hidden justify-center sm:flex">
-          <span className="glass inline-flex items-center gap-2 rounded-[var(--radius-pill)] px-4 py-2 text-sm text-muted">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-            </span>
-            {site.available}
-          </span>
+        <div className="flex items-center gap-1">
+          <ul className="mr-1 hidden items-center gap-1 sm:flex">
+            {links.map((l) => (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  className="rounded-md px-3 py-1.5 font-mono text-xs text-muted transition-colors hover:text-foreground"
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <ThemeToggle />
         </div>
-
-        <span className="justify-self-end text-right text-sm leading-tight text-muted">
-          {site.location}
-        </span>
       </nav>
     </header>
   );

@@ -7,11 +7,17 @@ export const site = {
     "Full-stack software engineer from IIT Madras building and shipping production SaaS since 2024 across Next.js, TypeScript, Node.js, and React.",
   email: "anuragpoonia.ap@gmail.com",
   resume: "/Anurag_Poonia_Resume.pdf",
-  photo: "/Profile-pic.jpeg",
+  photo: "/Profile2.png",
   location: "Hisar, Haryana, India",
   /** Shown in the top-bar availability pill. */
   available: "Available for work",
+  /** Catchline for the vertical gutter marquees — trailing separator keeps the
+   *  repeated loop evenly spaced. */
+  marquee:
+    "Building production SaaS · Shipping since 2024 · Full-stack engineering · Next.js · TypeScript · Node.js · ",
   timezone: "Works EST for US clients",
+  /** GitHub handle — single source of truth for the contribution graph. */
+  githubUsername: "0xarg",
   socials: {
     github: "https://github.com/0xarg",
     linkedin: "https://linkedin.com/in/anurag-poonia",

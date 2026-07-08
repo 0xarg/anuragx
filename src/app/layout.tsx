@@ -1,28 +1,20 @@
 import type { Metadata } from "next";
-import { Inter, Oswald, Sacramento } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Cursor } from "@/components/Cursor";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { Analytics } from "@vercel/analytics/next";
 
-/** Body / UI type — variable, wide range. */
-const inter = Inter({
-  variable: "--font-inter",
+/** Body / UI type — clean neutral grotesque. */
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
-/** Condensed grotesque for the big statement headings (matches the reference). */
-const oswald = Oswald({
-  variable: "--font-oswald",
+/** Monospace for eyebrows, labels, dates, and tech tags. */
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-});
-
-/** Script signature for the hero first-name flourish. */
-const sacramento = Sacramento({
-  variable: "--font-sacramento",
-  subsets: ["latin"],
-  weight: "400",
   display: "swap",
 });
 
@@ -55,11 +47,19 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${oswald.variable} ${sacramento.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full">
-        <Cursor />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

@@ -1,14 +1,12 @@
 import { Nav } from "@/components/Nav";
-import { NavRail } from "@/components/NavRail";
+import { Frame } from "@/components/Frame";
 import { Hero } from "@/components/sections/Hero";
-import { Stats } from "@/components/sections/Stats";
+import { About } from "@/components/sections/About";
 import { Experience } from "@/components/sections/Experience";
 import { Work } from "@/components/sections/Work";
-import { Services } from "@/components/sections/Services";
 import { TechStack } from "@/components/sections/TechStack";
-import { Process } from "@/components/sections/Process";
+import { Contributions } from "@/components/sections/Contributions";
 import { Education } from "@/components/sections/Education";
-import { FAQ } from "@/components/sections/FAQ";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
 
@@ -16,20 +14,19 @@ export default function Home() {
   return (
     <>
       <Nav />
-      <NavRail />
-      <main>
-        <Hero />
-        <Stats />
-        <Experience />
-        <Work />
-        <Services />
-        <TechStack />
-        <Process />
-        <Education />
-        <FAQ />
-        <Contact />
-      </main>
-      <Footer />
+      <Frame>
+        <main>
+          <Hero />
+          <About />
+          <Experience />
+          <Work />
+          <TechStack />
+          <Contributions />
+          <Education />
+          <Contact />
+        </main>
+        <Footer />
+      </Frame>
     </>
   );
 }

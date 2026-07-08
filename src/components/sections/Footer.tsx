@@ -1,49 +1,38 @@
-import { Marquee } from "@/components/Marquee";
 import { site } from "@/content/site";
+import { Briefcase } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/BrandIcons";
+import { PlusMark } from "@/components/PlusMark";
 
-const navLinks = [
-  { href: "#top", label: "Home" },
-  { href: "#work", label: "Work" },
-  { href: "#services", label: "Services" },
-  { href: "#tech", label: "Tech" },
-  { href: "#faq", label: "FAQ" },
-  { href: "#contact", label: "Contact" },
+const socials = [
+  { href: site.socials.github, label: "GitHub", Icon: GithubIcon },
+  { href: site.socials.linkedin, label: "LinkedIn", Icon: LinkedinIcon },
+  { href: site.socials.upwork, label: "Upwork", Icon: Briefcase },
 ];
 
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="border-t border-line">
-      {/* Marquee ticker */}
-      <div className="border-b border-line py-8">
-        <Marquee duration={24}>
-          {Array.from({ length: 4 }).map((_, i) => (
+    <footer className="relative border-t border-border">
+      <PlusMark className="left-0 top-0" />
+      <PlusMark className="right-0 top-0" />
+      <div className="flex flex-col gap-4 px-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+        <span className="font-mono text-xs text-muted">
+          © {year} {site.name} · {site.location}
+        </span>
+        <div className="flex items-center gap-1">
+          {socials.map(({ href, label, Icon }) => (
             <a
-              key={i}
-              href={`mailto:${site.email}`}
-              className="font-display flex items-center gap-6 pr-6 text-4xl font-medium uppercase text-text transition-colors hover:text-accent sm:text-6xl"
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition-colors hover:text-foreground"
             >
-              Let&rsquo;s work together
-              <span className="text-accent">→</span>
+              <Icon size={16} />
             </a>
           ))}
-        </Marquee>
-      </div>
-
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-5 py-10 sm:flex-row sm:items-center sm:justify-between">
-        <span className="font-display text-lg font-semibold uppercase text-text">
-          {site.name}
-        </span>
-        <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
-          {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className="transition-colors hover:text-text">
-              {l.label}
-            </a>
-          ))}
-        </nav>
-        <span className="eyebrow text-xs">
-          © {year} · {site.location}
-        </span>
+        </div>
       </div>
     </footer>
   );

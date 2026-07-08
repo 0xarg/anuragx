@@ -1,44 +1,35 @@
-import { Reveal } from "./Reveal";
-
-type SectionProps = {
-  id: string;
-  /** Numeric label like "01" — rendered as "/01". */
-  index?: string;
-  /** Section heading (kicker) shown next to the label. */
-  label?: string;
-  children: React.ReactNode;
-  className?: string;
-};
+import type { ReactNode } from "react";
+import { PlusMark } from "@/components/PlusMark";
 
 /**
- * Standard section shell with the reference's numeric "/01" label + kicker
- * pattern and consistent vertical rhythm.
+ * A single band of the framed page column. Every section but the first carries
+ * a thin top divider with crosshair marks where the divider meets the frame
+ * rails — the minimalist "separator line with corners" between sections.
+ * Horizontal padding keeps content clear of the rails.
  */
 export function Section({
   id,
-  index,
-  label,
   children,
   className = "",
-}: SectionProps) {
+  first = false,
+}: {
+  id?: string;
+  children: ReactNode;
+  className?: string;
+  first?: boolean;
+}) {
   return (
     <section
       id={id}
-      className={`mx-auto w-full max-w-6xl px-6 py-24 md:py-32 ${className}`}
+      className={`relative px-6 py-10 sm:px-8 sm:py-12 ${
+        first ? "" : "border-t border-border"
+      } ${className}`}
     >
-      {(index || label) && (
-        <Reveal className="mb-12 flex items-center gap-4 border-b border-line pb-5">
-          {index && (
-            <span className="eyebrow text-sm font-medium tabular-nums">
-              /{index}
-            </span>
-          )}
-          {label && (
-            <span className="eyebrow text-sm font-medium uppercase tracking-wide">
-              {label}
-            </span>
-          )}
-        </Reveal>
+      {!first && (
+        <>
+          <PlusMark className="left-0 top-0" />
+          <PlusMark className="right-0 top-0" />
+        </>
       )}
       {children}
     </section>
