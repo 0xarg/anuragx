@@ -20,8 +20,9 @@ export const site = {
   githubUsername: "0xarg",
   socials: {
     github: "https://github.com/0xarg",
-    linkedin: "https://linkedin.com/in/anurag-poonia",
-    upwork: "https://www.upwork.com/",
+    linkedin: "https://www.linkedin.com/in/anurag-poonia-665075295/",
+    x: "https://x.com/0xanrg",
+    upwork: "https://www.upwork.com/freelancers/anuragp50?mp_source=share",
   },
 } as const;
 
