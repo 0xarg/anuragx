@@ -31,7 +31,7 @@ export function Hero() {
         </span>
       </BlurFade>
 
-      <div className="mt-6 flex items-start justify-between gap-6">
+      <div className="mt-6 flex items-center justify-between gap-6">
         <div className="min-w-0">
           <BlurFade inView={false} delay={0.05}>
             <div className="flex items-center gap-3">
@@ -51,6 +51,11 @@ export function Hero() {
           <BlurFade inView={false} delay={0.1}>
             <p className="mt-2 font-mono text-sm text-muted">{site.title}</p>
           </BlurFade>
+          <BlurFade inView={false} delay={0.2}>
+            <p className="mt-6 text-[15px] leading-relaxed text-muted-strong sm:text-base">
+              {site.positioning}
+            </p>
+          </BlurFade>
         </div>
 
         <BlurFade inView={false} delay={0.15}>
@@ -59,12 +64,6 @@ export function Hero() {
           </div>
         </BlurFade>
       </div>
-
-      <BlurFade inView={false} delay={0.2}>
-        <p className="mt-6 text-[15px] leading-relaxed text-muted-strong sm:text-base">
-          {site.positioning}
-        </p>
-      </BlurFade>
 
       <BlurFade inView={false} delay={0.25}>
         <div className="mt-7 flex flex-wrap items-center gap-3">
