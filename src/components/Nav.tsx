@@ -4,10 +4,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
+// Root-anchored (`/#…`) so they resolve from case-study / writing sub-pages too.
 const links = [
-  { href: "#about", label: "about" },
-  { href: "#work", label: "work" },
-  { href: "#contact", label: "contact" },
+  { href: "/#about", label: "about" },
+  { href: "/#work", label: "work" },
+  { href: "/writing", label: "writing" },
+  { href: "/#contact", label: "contact" },
 ];
 
 /** Minimal top bar: mono wordmark left, anchor links + theme toggle right.
@@ -32,7 +34,7 @@ export function Nav() {
     >
       <nav className="mx-auto flex w-full max-w-2xl items-center justify-between px-5 py-4">
         <Link
-          href="#top"
+          href="/"
           className="font-mono text-sm font-medium tracking-tight text-foreground transition-opacity hover:opacity-70"
         >
           anurag<span className="text-muted">.dev</span>

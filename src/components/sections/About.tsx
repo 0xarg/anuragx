@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { BlurFade } from "@/components/BlurFade";
 import { Section } from "@/components/Section";
 
@@ -40,6 +42,19 @@ export function About() {
             </div>
           ))}
         </dl>
+      </BlurFade>
+
+      <BlurFade delay={0.2}>
+        <Link
+          href="/about"
+          className="group mt-6 inline-flex items-center gap-1.5 font-mono text-xs text-muted transition-colors hover:text-foreground"
+        >
+          More about me
+          <ArrowRight
+            size={13}
+            className="transition-transform group-hover:translate-x-0.5"
+          />
+        </Link>
       </BlurFade>
     </Section>
   );

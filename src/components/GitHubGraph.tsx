@@ -22,13 +22,27 @@ const greenTheme = {
 export function GitHubGraph() {
   const { resolvedTheme } = useTheme();
   const mounted = useMounted();
-  // Match the SSR/first-paint render (light) until mounted to avoid a
-  // hydration mismatch when the persisted theme is dark.
-  const colorScheme = mounted && resolvedTheme === "dark" ? "dark" : "light";
+
+  // The calendar fetches its data on the client and renders a different
+  // (loading) tree during SSR, which tripped a hydration mismatch. It has no
+  // SSR/SEO value anyway, so render a same-height placeholder until mounted and
+  // only mount the real calendar on the client.
+  if (!mounted) {
+    return (
+      <div
+        aria-hidden
+        className="h-[118px] w-full animate-pulse rounded-[var(--radius-lg)] bg-card"
+      />
+    );
+  }
+
+  const colorScheme = resolvedTheme === "dark" ? "dark" : "light";
 
   return (
     <div className="group overflow-x-auto">
-      <div className="filter-[grayscale(1)] transition-[filter] duration-500 ease-out group-hover:filter-[grayscale(0)] motion-reduce:transition-none">
+      {/* Grayscale at rest; on hover it desaturates to full GitHub-green and
+          lifts a touch — "hover to bring it to life". */}
+      <div className="origin-left transition-[filter,transform] duration-500 ease-out filter-[grayscale(1)] group-hover:scale-[1.01] group-hover:filter-[grayscale(0)] motion-reduce:transition-none motion-reduce:group-hover:scale-100">
         <GitHubCalendar
           username={site.githubUsername}
           colorScheme={colorScheme}

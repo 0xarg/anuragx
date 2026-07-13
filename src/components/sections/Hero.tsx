@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { BlurFade } from "@/components/BlurFade";
 import { Button } from "@/components/Button";
+import { Magnetic } from "@/components/Magnetic";
+import { HeroGlobe } from "@/components/HeroGlobe";
 import { site } from "@/content/site";
 import { Briefcase, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon, XIcon } from "@/components/BrandIcons";
@@ -32,24 +34,29 @@ export function Hero() {
       <div className="mt-6 flex items-start justify-between gap-6">
         <div className="min-w-0">
           <BlurFade inView={false} delay={0.05}>
-            <h1 className="tracking-tight-heading text-3xl font-semibold text-foreground sm:text-4xl">
-              {site.name}
-            </h1>
+            <div className="flex items-center gap-3">
+              <Image
+                src={site.photo}
+                alt={site.name}
+                width={80}
+                height={80}
+                priority
+                className="h-10 w-10 shrink-0 rounded-full border border-border object-cover object-top"
+              />
+              <h1 className="tracking-tight-heading text-3xl font-semibold text-foreground sm:text-4xl">
+                {site.name}
+              </h1>
+            </div>
           </BlurFade>
           <BlurFade inView={false} delay={0.1}>
-            <p className="mt-1.5 font-mono text-sm text-muted">{site.title}</p>
+            <p className="mt-2 font-mono text-sm text-muted">{site.title}</p>
           </BlurFade>
         </div>
 
         <BlurFade inView={false} delay={0.15}>
-          <Image
-            src={site.photo}
-            alt={site.name}
-            width={112}
-            height={112}
-            priority
-            className="h-20 w-20 shrink-0 rounded-full border border-border object-cover object-top sm:h-24 sm:w-24"
-          />
+          <div className="w-40 shrink-0 sm:w-56">
+            <HeroGlobe />
+          </div>
         </BlurFade>
       </div>
 
@@ -61,7 +68,9 @@ export function Hero() {
 
       <BlurFade inView={false} delay={0.25}>
         <div className="mt-7 flex flex-wrap items-center gap-3">
-          <Button href="#work">View my work</Button>
+          <Magnetic>
+            <Button href="#work">View my work</Button>
+          </Magnetic>
           <Button href={site.resume} variant="secondary" external>
             Résumé
           </Button>

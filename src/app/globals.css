@@ -56,10 +56,12 @@
 
 html {
   scroll-behavior: smooth;
+  /* Painted on the root so the fixed WebGL background canvas (-z-10) layers
+     above it while staying behind all page content. */
+  background: var(--background);
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -85,27 +87,8 @@ body {
   letter-spacing: -0.02em;
 }
 
-/* Vertical gutter marquee: the track holds the phrase twice, so translating up
-   by half its height loops seamlessly. */
-@keyframes marquee-y {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-50%);
-  }
-}
-
-.animate-marquee-y {
-  animation: marquee-y 60s linear infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  .animate-marquee-y {
-    animation: none;
   }
 }

@@ -1,0 +1,42 @@
+Most engineering advice assumes a team: someone owns the frontend, someone owns
+infra, someone reviews your PR. When you're the only engineer on a product, that
+scaffolding disappears. Every decision — and every consequence — is yours.
+
+Here's what I've learned shipping production SaaS for clients as the only person
+in the repo.
+
+## Own the whole lifecycle, on purpose
+
+There's no one to hand the hard parts to, so I stopped treating any layer as
+someone else's problem. System design, REST APIs, database schema, tests, and
+CI/CD deployment are one continuous job. The upside: nothing falls between the
+seams, because there are no seams — just me.
+
+The discipline this forces is worth it even on a team. When you know you'll be
+the one paged at 2am, you design differently.
+
+## Build for production, not for the demo
+
+A demo has to look right once. Production has to keep working while you sleep, in
+another timezone, under real traffic. Those are different products.
+
+- Security hardening is not a phase you get to later; it's a default.
+- Reliability means the boring work — retries, idempotency, health checks.
+- "Zero to one" still has to survive month two.
+
+## Make the boring decisions early
+
+Normalized data, clean boundaries, and pipelines that keep working as scope
+grows aren't glamorous. But they're the decisions that let a solo project keep
+moving after the initial sprint, instead of collapsing under its own shortcuts.
+
+> The best solo work looks, from the outside, like a small team was behind it.
+> That's the whole trick.
+
+## Ship, then write it down
+
+The last step is communication. Clear written updates are what let a client
+trust a remote solo engineer they've never met in person — and, honestly,
+they're how I remember what I decided and why.
+
+That's part of why this blog exists.

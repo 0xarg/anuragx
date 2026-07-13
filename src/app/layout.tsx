@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { GutterQuotes } from "@/components/GutterQuotes";
 import { Analytics } from "@vercel/analytics/next";
 
 /** Body / UI type — clean neutral grotesque. */
@@ -57,6 +58,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
+          <GutterQuotes />
           {children}
         </ThemeProvider>
         <Analytics />
