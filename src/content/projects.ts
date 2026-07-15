@@ -51,7 +51,7 @@ export type Project = {
 /**
  * Single source of truth for the Work section. Card copy (description/detail) is
  * verbatim from Anurag_Poonia_Resume.pdf — do not paraphrase those two lines.
- * URLs confirmed: live = https://anuragx.dev/<name>, repo = github.com/0xarg/<name>.
+ * URLs confirmed: live = https://<name>.anuragx.dev, repo = github.com/0xarg/<name>.
  */
 export const projects: Project[] = [
   {
@@ -63,7 +63,7 @@ export const projects: Project[] = [
     detail:
       "Seeded the analysis engine with 100+ repositories and 500+ issues scraped and indexed for on-demand AI analysis, with a normalized ingestion pipeline feeding the insight generation layer.",
     stack: ["Next.js", "TypeScript", "Supabase", "Claude API"],
-    live: "https://anuragx.dev/openscope",
+    live: "https://openscope.anuragx.dev",
     github: "https://github.com/0xarg/openscope",
     caseStudy: {
       summary:
@@ -118,7 +118,7 @@ export const projects: Project[] = [
     detail:
       "Implemented a Web3 frontend with wagmi + viem supporting MetaMask, WalletConnect, Phantom, and Backpack, with explicit gas handling and real-time reward tracking.",
     stack: ["Solidity", "Next.js", "wagmi", "viem"],
-    live: "https://anuragx.dev/stakex",
+    live: "https://stakex.anuragx.dev",
     github: "https://github.com/0xarg/stakex",
     caseStudy: {
       summary:
@@ -172,7 +172,7 @@ export const projects: Project[] = [
     detail:
       "Cut AI operating cost ~60% by routing tasks across models by complexity — reserving frontier models (Claude 4.8) for hard reasoning and delegating routine parsing to cheaper models (Claude 4.6, GPT-4o-mini) — plus a memory/caching layer to eliminate redundant calls without degrading output quality.",
     stack: ["Node.js", "Background workers", "SMTP", "Multi-model AI"],
-    live: "https://anuragx.dev/watchtower",
+    live: "https://watchtower.anuragx.dev",
     github: "https://github.com/0xarg/watchtower",
     caseStudy: {
       summary:
